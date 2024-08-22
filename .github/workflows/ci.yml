@@ -1,0 +1,36 @@
+name: CI Pipeline
+
+# Déclenche le workflow sur chaque push ou pull request vers la branche 'main'
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+# Définit les jobs qui vont être exécutés
+jobs:
+  build:
+    # Utilise la dernière version d'Ubuntu comme environnement
+    runs-on: ubuntu-latest
+
+    # Les étapes du job
+    steps:
+      # Vérifie le code source depuis le dépôt
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Configure Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      # Installe les dépendances du projet
+      - name: Install dependencies
+        run: npm install
+
+      # Lance la construction du projet
+      - name: Build
+        run: npm run build
