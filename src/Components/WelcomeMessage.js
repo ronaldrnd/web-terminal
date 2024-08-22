@@ -1,35 +1,35 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 const WelcomeMessage = () => {
   const [message, setMessage] = useState('');
   const fullMessage = "Welcome to this terminal simulation project. This project is a practice for learning CI/CD.";
 
-  let timer = null;
+  const timerRef = useRef(null);
 
   useEffect(() => {
     let index = 0;
 
     const startAnimation = () => {
-      timer = setInterval(() => {
+      timerRef.current = setInterval(() => {
         setMessage(prev => {
           const nextMessage = fullMessage.slice(0, index + 1);
           index++;
           return nextMessage;
         });
         if (index >= fullMessage.length) {
-          clearInterval(timer);
+          clearInterval(timerRef.current);
           setTimeout(() => {
             setMessage(''); // Clear the message
             index = 0; // Reset index
             // Restart the animation after clearing
-            timer = setInterval(() => {
+            timerRef.current = setInterval(() => {
               setMessage(prev => {
                 const nextMessage = fullMessage.slice(0, index + 1);
                 index++;
                 return nextMessage;
               });
               if (index >= fullMessage.length) {
-                clearInterval(timer);
+                clearInterval(timerRef.current);
               }
             }, 50);
           }, 30000); // Wait 30 seconds before restarting
@@ -39,7 +39,7 @@ const WelcomeMessage = () => {
 
     startAnimation();
 
-    return () => clearInterval(timer);
+    return () => clearInterval(timerRef.current);
   }, []);
 
   return (
