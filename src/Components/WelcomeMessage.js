@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 
 const WelcomeMessage = () => {
   const [message, setMessage] = useState('');
-  const fullMessage = "Welcome to this terminal simulation project. This project is a practice for learning CI/CD ....";
+  const fullMessage = "Welcome to this terminal simulation project. This project is a practice for learning CI/CD .....";
 
   const timerRef = useRef(null);
 
